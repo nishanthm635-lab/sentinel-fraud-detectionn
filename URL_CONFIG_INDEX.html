@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel URL Configuration System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(71, 85, 105, 0.5);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            background: rgba(30, 41, 59, 1);
+            transform: translateY(-2px);
+        }
+        
+        .card h3 {
+            color: #60a5fa;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card ul {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .card li {
+            color: #94a3b8;
+            padding: 0.25rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .code-block {
+            background: rgba(15, 23, 42, 0.8);
+            border-left: 3px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .quick-start {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .quick-start h2 {
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+        
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+        }
+        
+        .features {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .features h2 {
+            color: #60a5fa;
+            margin-bottom: 1rem;
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .feature-item:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(71, 85, 105, 0.3);
+            color: #64748b;
+        }
+        
+        a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Sentinel URL Configuration System</h1>
+            <p class="subtitle">Professional Backend URL Management for Your Fraud Detection Dashboard</p>
+        </header>
+
+        <div class="quick-start">
+            <h2>🚀 Quick Start</h2>
+            <div class="code-block">$ npm run dev</div>
+            <p>That's it! The system automatically detects your backend server.</p>
+            <p>For production, set environment variables:</p>
+            <div class="code-block">VITE_API_URL="https://api.example.com" \
+VITE_WS_URL="wss://api.example.com" \
+npm run build</div>
+        </div>
+
+        <div class="features">
+            <h2>✨ Key Features</h2>
+            <div class="features-list">
+                <div class="feature-item">Zero-Config Development</div>
+                <div class="feature-item">Production Ready</div>
+                <div class="feature-item">Type Safe</div>
+                <div class="feature-item">Auto-Detection</div>
+                <div class="feature-item">Environment Variables</div>
+                <div class="feature-item">Error Handling</div>
+                <div class="feature-item">Comprehensive Docs</div>
+                <div class="feature-item">Test Scripts</div>
+            </div>
+        </div>
+
+        <h2 style="margin-bottom: 1.5rem;">📚 Documentation</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>🎯 GET STARTED</h3>
+                <p>New to the system? Start here!</p>
+                <ul>
+                    <li>What was created</li>
+                    <li>Quick start guide</li>
+                    <li>Verification checklist</li>
+                </ul>
+                <a href="./SETUP_COMPLETE.md" class="button">View Setup Guide</a>
+            </div>
+
+            <div class="card">
+                <h3>📖 DETAILED GUIDE</h3>
+                <p>Complete reference documentation</p>
+                <ul>
+                    <li>Configuration options</li>
+                    <li>Development workflow</li>
+                    <li>Production deployment</li>
+                </ul>
+                <a href="./docs/BACKEND_URL_CONFIG.md" class="button">Read Full Guide</a>
+            </div>
+
+            <div class="card">
+                <h3>🔗 URL REFERENCE</h3>
+                <p>Quick lookup for common URLs</p>
+                <ul>
+                    <li>Development URLs</li>
+                    <li>Production examples</li>
+                    <li>Common scenarios</li>
+                </ul>
+                <a href="./docs/URL_REFERENCE.md" class="button">See Examples</a>
+            </div>
+
+            <div class="card">
+                <h3>🏗️ ARCHITECTURE</h3>
+                <p>System design and diagrams</p>
+                <ul>
+                    <li>System architecture</li>
+                    <li>Data flow diagrams</li>
+                    <li>Component structure</li>
+                </ul>
+                <a href="./ARCHITECTURE.md" class="button">View Diagrams</a>
+            </div>
+
+            <div class="card">
+                <h3>📊 BEFORE & AFTER</h3>
+                <p>Improvement comparison</p>
+                <ul>
+                    <li>Old approach vs new</li>
+                    <li>Feature comparison</li>
+                    <li>Benefits overview</li>
+                </ul>
+                <a href="./BEFORE_AFTER_COMPARISON.md" class="button">Compare</a>
+            </div>
+
+            <div class="card">
+                <h3>✅ INTEGRATION SUMMARY</h3>
+                <p>Integration and setup details</p>
+                <ul>
+                    <li>File structure</li>
+                    <li>Code examples</li>
+                    <li>Deployment info</li>
+                </ul>
+                <a href="./docs/SERVER_URL_SETUP.md" class="button">See Integration</a>
+            </div>
+        </div>
+
+        <h2 style="margin-bottom: 1.5rem; margin-top: 2rem;">⚙️ Key Files</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>src/config/api.ts</h3>
+                <p>Core configuration module</p>
+                <ul>
+                    <li>getApiConfig()</li>
+                    <li>getApiUrl()</li>
+                    <li>getWebSocketUrl()</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>src/services/api.ts</h3>
+                <p>API service layer</p>
+                <ul>
+                    <li>fetchTransactions()</li>
+                    <li>analyzeFraud()</li>
+                    <li>chatWithAI()</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>src/App.tsx</h3>
+                <p>Updated main component</p>
+                <ul>
+                    <li>Dynamic URL usage</li>
+                    <li>Connection logging</li>
+                    <li>Error handling</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>.env.development</h3>
+                <p>Development configuration</p>
+                <ul>
+                    <li>Development URLs</li>
+                    <li>Local backend</li>
+                    <li>Vite settings</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>.env.production.example</h3>
+                <p>Production template</p>
+                <ul>
+                    <li>Production URLs</li>
+                    <li>Cloud backends</li>
+                    <li>Settings examples</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>test-urls.sh / .bat</h3>
+                <p>Test and verification</p>
+                <ul>
+                    <li>Connection testing</li>
+                    <li>Health checks</li>
+                    <li>Configuration info</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 style="margin-bottom: 1.5rem; margin-top: 2rem;">🧪 Testing</h2>
+        
+        <div class="card">
+            <h3>Verify Your Setup</h3>
+            <p>Run these commands to test your configuration:</p>
+            
+            <p style="margin-top: 1rem;"><strong>Linux/Mac:</strong></p>
+            <div class="code-block">./test-urls.sh</div>
+            
+            <p style="margin-top: 1rem;"><strong>Windows:</strong></p>
+            <div class="code-block">test-urls.bat</div>
+            
+            <p style="margin-top: 1rem;"><strong>Browser Console:</strong></p>
+            <div class="code-block">import('@/utils/verify-config')</div>
+            
+            <p style="margin-top: 1rem;"><strong>Manual:</strong></p>
+            <div class="code-block">curl http://localhost:3000/api/health</div>
+        </div>
+
+        <h2 style="margin-bottom: 1.5rem; margin-top: 2rem;">🎯 Common Tasks</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>Development</h3>
+                <div class="code-block">npm run dev</div>
+                <p style="margin-top: 1rem; color: #94a3b8;">Auto-detects localhost:3000</p>
+            </div>
+
+            <div class="card">
+                <h3>Remote Backend</h3>
+                <div class="code-block">VITE_API_URL=https://api.dev.com npm run dev</div>
+                <p style="margin-top: 1rem; color: #94a3b8;">Connect to remote server</p>
+            </div>
+
+            <div class="card">
+                <h3>Production Build</h3>
+                <div class="code-block">VITE_API_URL=https://api.example.com npm run build</div>
+                <p style="margin-top: 1rem; color: #94a3b8;">Build for production</p>
+            </div>
+
+            <div class="card">
+                <h3>Test Health</h3>
+                <div class="code-block">curl http://localhost:3000/api/health</div>
+                <p style="margin-top: 1rem; color: #94a3b8;">Check backend status</p>
+            </div>
+        </div>
+
+        <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 0.5rem; padding: 1.5rem; margin-top: 2rem;">
+            <h2 style="color: #60a5fa; margin-bottom: 1rem;">📝 Summary</h2>
+            <p>This complete URL configuration system provides:</p>
+            <ul style="margin-top: 1rem; margin-left: 1.5rem; color: #cbd5e1;">
+                <li>Auto-detection for development</li>
+                <li>Environment variables for production</li>
+                <li>Centralized URL management</li>
+                <li>Type-safe services</li>
+                <li>Built-in error handling</li>
+                <li>Comprehensive documentation</li>
+                <li>Testing and verification tools</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>🎉 Your Sentinel application now has professional URL management!</p>
+            <p style="margin-top: 1rem;">For questions, refer to the documentation above.</p>
+            <p style="margin-top: 2rem;">Created with ❤️ for production-ready deployments</p>
+        </footer>
+    </div>
+</body>
+</html>
